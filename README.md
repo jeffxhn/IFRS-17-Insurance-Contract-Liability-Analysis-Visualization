@@ -15,7 +15,7 @@ The goal is to demonstrate hands-on proficiency in:
 
 | Item | Detail |
 |------|--------|
-| Total Records | 800 rows (100 contracts × 8 quarters) |
+| Total Records | 800 rows (100 contracts x 8 quarters) |
 | Contract IDs | CON00001 – CON00100 |
 | Product Types | Term Life (50%), Whole Life (30%), Annuity (20%) |
 | Reporting Period | 2024 Q1 – 2025 Q4 |
@@ -36,24 +36,24 @@ The goal is to demonstrate hands-on proficiency in:
 
 | Field Name | Description |
 |------------|-------------|
-| `contract_id` | Unique contract identifier |
-| `report_date` | Reporting quarter end date |
-| `product_type` | Product line (Term Life / Whole Life / Annuity) |
-| `issue_year` | Year the contract was issued |
-| `cohort` | Issue year and quarter |
-| `fulfilment_cashflows` | Fulfilment cash flows (FCF) |
-| `risk_adjustment` | Risk adjustment (RA) |
-| `csm_opening` | CSM at start of period |
-| `csm_release` | CSM released to profit in current period |
-| `csm_unlocking` | Experience unlocking adjustments |
-| `csm_interest_accretion` | Interest accretion on CSM |
-| `csm_new_business` | CSM added from new business |
-| `csm_closing` | CSM at end of period |
-| `loss_component` | Loss component (if any) |
-| `discount_rate` | Discount rate used for calculations |
-| `insurance_revenue` | Insurance service revenue |
-| `insurance_service_expense` | Insurance service expense |
-| `insurance_finance_expense` | Insurance finance expense |
+| contract_id | Unique contract identifier |
+| report_date | Reporting quarter end date |
+| product_type | Product line (Term Life / Whole Life / Annuity) |
+| issue_year | Year the contract was issued |
+| cohort | Issue year and quarter |
+| fulfilment_cashflows | Fulfilment cash flows (FCF) |
+| risk_adjustment | Risk adjustment (RA) |
+| csm_opening | CSM at start of period |
+| csm_release | CSM released to profit in current period |
+| csm_unlocking | Experience unlocking adjustments |
+| csm_interest_accretion | Interest accretion on CSM |
+| csm_new_business | CSM added from new business |
+| csm_closing | CSM at end of period |
+| loss_component | Loss component (if any) |
+| discount_rate | Discount rate used for calculations |
+| insurance_revenue | Insurance service revenue |
+| insurance_service_expense | Insurance service expense |
+| insurance_finance_expense | Insurance finance expense |
 
 ## Dashboard Pages
 
@@ -88,10 +88,10 @@ The goal is to demonstrate hands-on proficiency in:
 | Data Visualization | Power BI Desktop |
 | Version Control | GitHub |
 
-## Key DAX Measures & SQL Queries
+## Key DAX Measures and SQL Queries
 
-```dax
--- ===== DATE TABLE =====
+### Date Table
+
 Dim_Date = 
 ADDCOLUMNS(
     CALENDAR(DATE(2024,1,1), DATE(2025,12,31)),
@@ -103,7 +103,8 @@ ADDCOLUMNS(
     "YearMonth", FORMAT([Date], "YYYY-MM")
 )
 
--- ===== CORE MEASURES =====
+### Core Measures
+
 Total CSM = SUM(fact_contract_liability[csm_closing])
 
 Total Revenue = SUM(fact_contract_liability[insurance_revenue])
@@ -140,7 +141,8 @@ Interest Accretion = SUM(fact_contract_liability[csm_interest_accretion])
 New Business CSM = SUM(fact_contract_liability[csm_new_business])
 Closing CSM = SUM(fact_contract_liability[csm_closing])
 
--- ===== CSM WATERFALL TABLE =====
+### CSM Waterfall Table
+
 CSM_Waterfall = 
 UNION(
     ROW("Step", "Opening CSM", "Value", [Opening CSM]),
@@ -151,7 +153,8 @@ UNION(
     ROW("Step", "Closing CSM", "Value", [Closing CSM])
 )
 
--- ===== KEY SQL QUERIES =====
+### Key SQL Queries
+
 -- Create database and table
 CREATE DATABASE IF NOT EXISTS ifrs17_project;
 USE ifrs17_project;
@@ -182,33 +185,34 @@ CREATE TABLE fact_contract_liability (
 SELECT COUNT(*) FROM fact_contract_liability;  -- Expected: 800
 SELECT COUNT(DISTINCT contract_id) FROM fact_contract_liability;  -- Expected: 100
 
-Business Insights
-CSM Release Rate of ~2% per quarter (≈8% annualized) is consistent with typical life insurance long-term profit patterns.
+## Business Insights
 
-6 loss-making contracts were identified. They are concentrated in the Term Life product, suggesting potential pricing assumption gaps worth reviewing.
+1. CSM Release Rate of approximately 2% per quarter (approximately 8% annualized) is consistent with typical life insurance long-term profit patterns.
+2. Six loss-making contracts were identified. They are concentrated in the Term Life product, suggesting potential pricing assumption gaps worth reviewing.
+3. Term Life is the dominant product, contributing approximately 51% of total CSM, making it the company's primary profit driver.
+4. Insurance Service Result is positive (340K), indicating the insurance business itself is profitable before finance costs.
 
-Term Life is the dominant product, contributing approximately 51% of total CSM, making it the company's primary profit driver.
+## How to Reproduce This Project
 
-Insurance Service Result is positive (340K), indicating the insurance business itself is profitable before finance costs.
+### 1. MySQL Setup
 
-How to Reproduce This Project
-1. MySQL Setup
 CREATE DATABASE ifrs17_project;
 
 Import the CSV file using MySQL Workbench Import Wizard or the LOAD DATA LOCAL INFILE command.
 
-2. Power BI Setup
-Open IFRS17_Report.pbix in Power BI Desktop
+### 2. Power BI Setup
 
-The data source is configured via ODBC to localhost:3306 database ifrs17_project
+- Open IFRS17_Report.pbix in Power BI Desktop
+- The data source is configured via ODBC to localhost:3306 database ifrs17_project
+- You may need to update ODBC connection settings if your MySQL credentials differ
 
-You may need to update ODBC connection settings if your MySQL credentials differ
+### 3. Python Data Generation (Optional)
 
-3. Python Data Generation (Optional)
 pip install pandas numpy
 python scripts/generate_data.py
 
-File Structure
+## File Structure
+
 ifrs17_project/
 ├── README.md
 ├── IFRS17_Report.pbix
@@ -220,10 +224,13 @@ ifrs17_project/
 └── sql/
     └── mysql_queries.sql
 
-Acknowledgments
-This project was independently completed as part of a self-directed actuarial data visualization portfolio. It demonstrates practical application of IFRS 17 concepts, data engineering, and business intelligence skills relevant to entry-level actuarial roles.
+## Author
 
-Author
 Jeff Haonan Xie
 jeffxhn@gmail.com
-Linkedin: https://www.linkedin.com/in/jeff-haonan-xie-05530b164/ 
+LinkedIn: https://www.linkedin.com/in/jeff-haonan-xie-05530b164/
+GitHub: https://github.com/jeffxhn
+
+## Acknowledgments
+
+This project was independently completed as part of a self-directed actuarial data visualization portfolio. It demonstrates practical application of IFRS 17 concepts, data engineering, and business intelligence skills relevant to entry-level actuarial roles.
