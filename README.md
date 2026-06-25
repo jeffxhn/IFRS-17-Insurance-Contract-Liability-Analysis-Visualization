@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project simulates a realistic actuarial reporting workflow under IFRS 17. It models a life insurance portfolio consisting of 100 contracts across three product lines (Term Life, Whole Life, and Annuity), tracks their contractual service margin (CSM) over 8 quarterly reporting periods (2024 Q1 – 2025 Q4), and presents the results through an interactive Power BI dashboard.
+This project simulates a realistic actuarial reporting workflow under IFRS 17. It models a life insurance portfolio consisting of 100 contracts across three product lines (Term Life, Whole Life, and Annuity), tracks their contractual service margin (CSM) over 8 quarterly reporting periods (2024 Q1 – 2025 Q4), and presents the results through an interactive Power BI report.
 
 The goal is to demonstrate hands-on proficiency in:
 - IFRS 17 core concepts (CSM, LRC, insurance service result, loss components)
@@ -55,7 +55,7 @@ The goal is to demonstrate hands-on proficiency in:
 | insurance_service_expense | Insurance service expense |
 | insurance_finance_expense | Insurance finance expense |
 
-## Dashboard Pages
+## Report Pages
 
 ### Page 1 – Executive Summary
 - KPI cards: Total CSM, Total LRC, Insurance Service Result, Insurance Net Result, Loss Contracts
