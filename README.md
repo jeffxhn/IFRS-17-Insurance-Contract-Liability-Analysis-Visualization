@@ -213,23 +213,25 @@ python scripts/generate_data.py
 
 ## File Structure
 
-ifrs17_project/
-├── README.md
-├── IFRS17_Report.pbix
-├── IFRS17_Report.pdf
-├── data/
-│   └── ifrs17_data.csv
-├── scripts/
-│   └── generate_data.py
-└── sql/
-    └── mysql_queries.sql
+File Structure:
+
+- ifrs17_project/
+  - README.md
+  - IFRS17_Report.pbix
+  - IFRS17_Report.pdf
+  - data/
+    - ifrs17_data.csv
+  - scripts/
+    - generate_data.py
+  - sql/
+    - mysql_queries.sql
 
 ## Author
 
 Jeff Haonan Xie
 jeffxhn@gmail.com
-LinkedIn: https://www.linkedin.com/in/jeff-haonan-xie-05530b164/
-GitHub: https://github.com/jeffxhn
+[LinkedIn](https://www.linkedin.com/in/jeff-haonan-xie-05530b164/)
+[GitHub](https://github.com/jeffxhn)
 
 ## Acknowledgments
 
